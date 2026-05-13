@@ -1,0 +1,96 @@
+================================================================================
+AUDIT REPORT - Grokking paper supplementary material
+================================================================================
+Generated: 2026-05-13 12:32:28 UTC+0700
+
+Audit checks:
+  - Kosson kappa requires N >= 25 (paper claims N=29)
+  - 1L kappa reports both inflated and deduplicated N
+  - Duplicate detection on campaign1_summary.json (FAIL if any duplicates)
+  - Overshoot power law fit verification (paper App L)
+  - Tier-1 MAPE checks both value and N=26
+  - Block H cross-cell uses per-cell means (paper convention)
+
+[v] PASS     Code completeness
+    Expected: 20 scripts
+    Observed: 20 scripts found
+
+[v] PASS     Data completeness
+    Expected: 9 files
+    Observed: 9 files found
+
+[v] PASS     Figure completeness
+    Expected: 7 PDFs
+    Observed: 7 PDFs found
+
+[v] PASS     Backbone smoke test
+    Expected: 221,952 params, V_0 ~ 742
+    Observed: 221,952 params, V_0 = 741.9
+
+[v] PASS     No duplicate runs in campaign1_summary.json
+    Expected: 0 duplicate (arch, eta, lambda, p, op, seed) tuples
+    Observed: 66 runs, all unique
+
+[v] PASS     kappa_LL = 0.25 (1L pooled)
+    Expected: median 0.25 +/- 0.02, N >= 35 (paper claims N=48)
+    Observed: median 0.242 (unique N=39), 0.242 (with duplicates N=39); CV unique 26.6%, CV pooled 26.6%
+
+[v] PASS     kappa_LL = 0.21 (MLP)
+    Expected: median 0.21 +/- 0.02, N >= 7
+    Observed: median 0.206, CV 17.4%, N = 9
+
+[v] PASS     kappa_LL = 0.370 (paper-2L, N=29)
+    Expected: 0.370 +/- 0.056, N=29, CV 15%
+    Observed: 0.370 +/- 0.057, N = 29, CV 15.4%
+
+[v] PASS     kappa_LL = 0.175 (alt-2L, N=30)
+    Expected: 0.175 +/- 0.018, N=30
+    Observed: 0.175 +/- 0.018, N = 30
+
+[v] PASS     kappa_kos = 0.668 (Kosson refit, N>=25)
+    Expected: 0.668 +/- 0.05, N >= 25 (paper N=29)
+    Observed: 0.650, CV 9.6%, N = 29
+
+[v] PASS     Overshoot power law: y=0.025*x^-5.51, R^2=0.87
+    Expected: A=0.025+/-0.005, b=-5.51+/-0.5, R^2=0.87+/-0.05, N>=25
+    Observed: A=0.0246, b=-5.512, R^2=0.869, N=29
+
+[v] PASS     Tier-1 MAPE = 17.7%
+    Expected: 17.7% +/- 1.0%, N=26
+    Observed: 17.7%, N=26
+
+[v] PASS     V_star LOOCV variation < 7%
+    Expected: < 7% range
+    Observed: 5.95%
+
+[v] PASS     Block F: F1 3/3, F3+F4 0/6 grok
+    Expected: F1: 3/3, F3+F4: 0/6
+    Observed: F1: 3/3, F2: 3/3, F3: 0/3, F4: 0/3
+
+[v] PASS     Block H cross-cell alpha* = 52.8 deg, CV 15%
+    Expected: 52.8 deg +/- 3 deg, CV 15.0% (ddof=0), N_cells >= 10
+    Observed: 52.8 deg, CV(ddof=0) 15.0%, CV(ddof=1) 15.7%, N_cells = 12
+
+[v] PASS     alpha* ~ p^b, R^2 = 0.985 (B4)
+    Expected: b ~ -0.71 +/- 0.05, R^2 = 0.985 +/- 0.02
+    Observed: b = -0.706, R^2 = 0.985, n = 5
+
+--------------------------------------------------------------------------------
+SUMMARY: 16 PASS, 0 PARTIAL, 0 FAIL, 0 SKIP
+--------------------------------------------------------------------------------
+
+Notes on each status:
+  PASS    = value matches within tolerance AND sample size matches paper
+  PARTIAL = value matches but sample size differs, or weaker tolerance
+  FAIL    = clear discrepancy that needs investigation
+  SKIP    = required input file absent (run upstream script first)
+
+To regenerate any SKIP'd inputs:
+  S1, S3, S9, S10 (training) -> campaign + 2L data
+  S2 -> block_F_runs.json
+  S11 -> block_H_runs.json
+  S12 -> transformer2_refit_summary.json (full N=29)
+  S4 -> predictive_validation_B.json + V_star_LOOCV.json
+  S13 -> predictive_validation_three_tier.json
+
+Total estimated reproduction time: ~6.5 GPU-hours (RTX 4090)

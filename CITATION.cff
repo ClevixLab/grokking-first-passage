@@ -1,0 +1,50 @@
+cff-version: 1.2.0
+message: "If you use this software or the associated paper, please cite it as below."
+title: "First-Passage Prediction of Grokking Delay: A Calibrated Law under AdamW with Causal Validation"
+abstract: >
+  We give the first quantitative prediction of grokking delay under AdamW:
+  a closed-form first-passage law with MAPE 17.7% on 26 held-out runs spanning a
+  41x delay range, with mechanism causally validated. The result fits a unified
+  picture of delayed generalisation as a crossing problem in the joint norm-angle
+  space, supported by a quantile-margin theorem and Block F causal interventions.
+authors:
+  - family-names: Truong
+    given-names: Xuan Khanh
+    email: khanh@clevix.vn
+    affiliation: "H&K Research Studio, Clevix LLC, Hanoi, Vietnam"
+  - family-names: Truong
+    given-names: Quynh Hoa
+    email: hoa@clevix.vn
+    affiliation: "H&K Research Studio, Clevix LLC, Hanoi, Vietnam"
+  - family-names: Luu
+    given-names: Duc Trung
+    email: trung.ld@clevix.vn
+    affiliation: "H&K Research Studio, Clevix LLC, Hanoi, Vietnam"
+  - family-names: Phan
+    given-names: Thanh Duc
+    email: ducpt@bav.edu.vn
+    affiliation: "Banking Academy of Vietnam, Hanoi, Vietnam"
+keywords:
+  - grokking
+  - generalisation
+  - AdamW
+  - first-passage
+  - weight decay
+  - phase transition
+license: MIT
+repository-code: "https://github.com/ClevixLab/grokking-first-passage"
+type: software
+preferred-citation:
+  type: article
+  title: "First-Passage Prediction of Grokking Delay: A Calibrated Law under AdamW with Causal Validation"
+  authors:
+    - family-names: Truong
+      given-names: Xuan Khanh
+    - family-names: Truong
+      given-names: Quynh Hoa
+    - family-names: Luu
+      given-names: Duc Trung
+    - family-names: Phan
+      given-names: Thanh Duc
+  year: 2026
+  journal: "arXiv preprint"
